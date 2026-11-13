@@ -1,0 +1,82 @@
+{
+  "resourceType": "Questionnaire",
+  "status": "active",
+  "title": "Visit Prep: medicines and allergies",
+  "name": "VisitPrepMedicinesAllergies",
+  "url": "http://open-emr.org/fhir/Questionnaire/visit-prep",
+  "identifier": [
+    {
+      "system": "urn:ietf:rfc:3986",
+      "value": "http://open-emr.org/fhir/Questionnaire/visit-prep"
+    }
+  ],
+  "version": "1.0.0",
+  "description": "Before a visit, the patient reviews the medicines and allergies on file, says what has changed, adds anything missing, and lists questions for the visit. Sent from the Visit Prep SMART app and held for staff review.",
+  "subjectType": ["Patient"],
+  "item": [
+    {
+      "linkId": "visit",
+      "text": "Visit",
+      "type": "string",
+      "readOnly": true
+    },
+    {
+      "linkId": "medications",
+      "text": "Medicines on file",
+      "type": "group",
+      "repeats": true,
+      "item": [
+        { "linkId": "medications.name", "text": "Medicine", "type": "string", "readOnly": true },
+        { "linkId": "medications.reference", "text": "Record", "type": "string", "readOnly": true },
+        {
+          "linkId": "medications.status",
+          "text": "Are you taking it?",
+          "type": "choice",
+          "required": true,
+          "answerOption": [
+            { "valueCoding": { "system": "http://open-emr.org/fhir/CodeSystem/visit-prep", "code": "taking", "display": "Yes, as prescribed" } },
+            { "valueCoding": { "system": "http://open-emr.org/fhir/CodeSystem/visit-prep", "code": "different", "display": "Yes, but differently" } },
+            { "valueCoding": { "system": "http://open-emr.org/fhir/CodeSystem/visit-prep", "code": "stopped", "display": "No, I stopped" } }
+          ]
+        },
+        { "linkId": "medications.note", "text": "Note", "type": "string" }
+      ]
+    },
+    {
+      "linkId": "medications-new",
+      "text": "Medicines you take that are not on the list (include vitamins and supplements)",
+      "type": "text"
+    },
+    {
+      "linkId": "allergies",
+      "text": "Allergies on file",
+      "type": "group",
+      "repeats": true,
+      "item": [
+        { "linkId": "allergies.name", "text": "Allergy", "type": "string", "readOnly": true },
+        { "linkId": "allergies.reference", "text": "Record", "type": "string", "readOnly": true },
+        {
+          "linkId": "allergies.status",
+          "text": "Is this right?",
+          "type": "choice",
+          "required": true,
+          "answerOption": [
+            { "valueCoding": { "system": "http://open-emr.org/fhir/CodeSystem/visit-prep", "code": "correct", "display": "Yes" } },
+            { "valueCoding": { "system": "http://open-emr.org/fhir/CodeSystem/visit-prep", "code": "incorrect", "display": "No, this is wrong" } }
+          ]
+        },
+        { "linkId": "allergies.note", "text": "Note", "type": "string" }
+      ]
+    },
+    {
+      "linkId": "allergies-new",
+      "text": "Allergies that are not on the list, and what happens",
+      "type": "text"
+    },
+    {
+      "linkId": "questions",
+      "text": "Questions or concerns for your visit",
+      "type": "text"
+    }
+  ]
+}

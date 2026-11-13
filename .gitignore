@@ -1,0 +1,5 @@
+/config.php
+/var/*
+!/var/.htaccess
+.idea/
+.vscode/
